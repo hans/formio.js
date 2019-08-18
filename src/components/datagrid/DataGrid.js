@@ -36,7 +36,10 @@ export default class DataGridComponent extends NestedComponent {
     if (this.hasRowGroups() && !this.options.builder) {
       const groups = _.get(this.component, 'rowGroups', []);
       const rowsNum = this.totalRowsNumber(groups);
-      this.setStaticValue(rowsNum);
+      if (this.dataValue.length !== rowsNum) {
+        this.setStaticValue(rowsNum);
+      }
+
       this.dataValue = _.zipWith(this.dataValue, this.defaultValue, (a, b) => {
         return _.merge(a, b);
       });
